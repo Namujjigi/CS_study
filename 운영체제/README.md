@@ -79,4 +79,4 @@
 
 ![image](https://user-images.githubusercontent.com/82094185/150729695-f6d02a89-9cd8-4321-a48c-92eb401eb0d7.png)
 
-  																	<시스템호출 유형별 명령어>
+  							<시스템호출 유형별 명령어>
