@@ -86,6 +86,8 @@ Operating System Definition
 
 - Kernel 커널: 컴퓨터에서 항상(all times) 실행되는 하나의 프로그램
 
+  - 운영체제의 핵심 기능을 모아 놓은것
+
 - system program: OS와 같이 제공 되지만 커널엔 포함되지 않는 것
 
 - application program: OS와 관련 없는 모든 프로그램
@@ -164,7 +166,7 @@ Interrupt-drive I/O Cycle
 
 I/O structure
 
-1. I/O가 시작된 후에는 I/O 완료 시에만 제어가 사용자 프로그램으로 돌아갑니다. polling
+1. I/O가 시작된 후에는 I/O 완료 시에만 제어가 사용자 프로그램으로 돌아갑니다. polling?
    - I/O가 시작된 후에는 I/O 완료 시에만 제어가 사용자 프로그램으로 돌아갑니다.
    - 대기 명령은 다음 인터럽트까지 CPU를 유휴 상태로 만듭니다.
    - 대기 루프(메모리 액세스에 대한 경합)
