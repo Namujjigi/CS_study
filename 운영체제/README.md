@@ -9,8 +9,8 @@ https://codex.cs.yale.edu/avi/os-book/OS10/slide-dir/index.html
 | 2. Operating-System Structures       | 01/25(완료) |
 | **Part 2: Process Management**       |             |
 | 3. Processes                         | 01/26(완료) |
-| 4. Threads & Concurrency             | 01/27(예정) |
-| 5. CPU Scheduling                    | 01/28(예정) |
+| 4. Threads & Concurrency             | 01/29(완료) |
+| 5. CPU Scheduling                    | 01/29(예정) |
 | **Part 3: Process Synchronization**  |             |
 | 6. synchronization-tools             |             |
 | 7. Synchronization Examples          |             |

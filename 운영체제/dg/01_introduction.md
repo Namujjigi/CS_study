@@ -1,4 +1,4 @@
-# 01 Introduction
+# Chapter 1: Introduction
 
 What Operating Systems Do
 
