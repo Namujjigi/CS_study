@@ -12,8 +12,8 @@ https://codex.cs.yale.edu/avi/os-book/OS10/slide-dir/index.html
 | 4. Threads & Concurrency             | 01/29(완료)   |
 | 5. CPU Scheduling                    | 01/31(완료)   |
 | **Part 3: Process Synchronization**  |               |
-| 6. synchronization-tools             | 02/03(진행중) |
-| 7. Synchronization Examples          | 02/05(예정)   |
+| 6. synchronization-tools             | 02/03(완료)   |
+| 7. Synchronization Examples          | 02/04(진행중) |
 | 8. Deadlocks                         | 02/06(예정)   |
 | **Part 4: Memory Management**        |               |
 | 9. Main Memory                       | 02/07(예정)   |
