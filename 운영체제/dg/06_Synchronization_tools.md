@@ -346,13 +346,154 @@ while (1) {
 
 **Semaphores**
 
-- p 34
+- Mutex Lock 보다 더 정교한 프로세스 방법을 제공함
+
+- Semaphore 는 정수 변수로 초기화를 제외하고 두가지 연산을 통해서만 액세스 할수 있음
+
+  - `wait()`
+
+    ```
+    wait(S) { 
+        while (S <= 0)
+           ; // busy wait
+        S--;
+    }
+    
+    ```
+
+  - `signal()`
+
+    ```
+    signal(S) { 
+        S++;
+    }
+    ```
+
+  - originally called `P()` and `V()`
+
+- **Counting semaphore** - 정수 값의 범위는 제한되지 않음
+
+- **Binary semaphore** - 정수값의 범위는 0, 1. Mutex lock 과 동일함
+
+- Counting semaphore는 binary semaphore로 구현할 수 있음
+
+- 세마포어를 사용해서 다양한 동기화 문제를 해결할 수 있음
+
+- Example
+
+  ```
+  do {
+      wait(mutex);
+          // critical section
+      signal(mutex);
+          //remainder section
+  }
+  ```
+
+- 동기화 문제 해결책
+
+  - 병행으로 수행되는 두 개의 프로세스 P1과 P2는 각각 S1과 S2 프로그래밍 문장을 가지고 있다고 하자. 또한 S1이 실행된 다음에 S2가 실행되어야한다. 이런 동기화 문제는 세마포어를 이용하여 쉽게 해결할 수 있다. 두 프로세스는 0으로 초기화된 synch라는 세마포어를 공유한다. 
+
+    ```
+    // P1
+    S1;
+    signal(synch);
+    
+    
+    // P2
+    wait(synch);
+    S2;
+    
+    ```
+
+- 구현 => 무슨 말인지 이해안됨
+
+  - 두 프로세스가 동일한 세마포어에서 동시에 `wait()`와 `signal()`을 실행할 수 없음을 보장해야 함
+
+  - 따라서, 구현은 wait()과 signal() 코드가 critical section에 배치되는 critical section problem이 됨. 
+
+  - Critical section 구현에서 busy waiting 을 가짐
+
+    - 그러나 구현 코드가 짧음
+    - Little busy waiting if critical section rarely occupied
+
+  - 응용 프로그램이 중요한 섹션에 많은 시간을 할애할 수 있으므로 이 방법은 좋은 솔루션이 아님
+
+  - Implementation with no busy waiting
+
+    ```
+    wait(semaphore *S) { 
+       S->value--; 
+       if (S->value < 0) {
+          add this process to S->list; 
+          block(); 
+       } 
+    }
+    
+    signal(semaphore *S) { 
+       S->value++; 
+       if (S->value <= 0) {
+       	  remove a process P from S->list; 
+          wakeup(P); 
+       } 
+    } 
+    
+    ```
 
 
 
-Monitors
+
+**Monitors**
+
+- 프로세스 동기화를 위한 편리하고 효과적인 메커니즘을 제공하는 높은 수준의 추상화
+
+- *Abstract data type* 추상 데이터 유형, 프로시저 내에서 코드로만 액세스할 수 있는 내부 변수
+
+- 모니터 내에서 한 번에 하나의 프로세스만 활성화할 수 있음
+
+- Schematic view of a monitor
+
+  ![image-20220203233348502](06_Synchronization_tools.assets/image-20220203233348502.png)
+
+- **Monitor Implementation Using Semaphores**
+
+  ```
+  /* variables 
+  semaphore mutex 
+  mutex = 1 */
+  
+  
+  wait(mutex);
+  …			 
+  body of P;
+  …     
+  signal(mutex);
+  ```
+
+- **Condition Variables**
+
+  - 두 가지 연산
+
+    - `x.wait()` : 프로세스가 `x.signal()` 까지 작업을 일시 중단함
+    - `x.signal()`:  x.wait()를 호출한 프로세스 중 하나를 재개함. x.wait()가 없으면 영향을 미치지 않음
+
+  - Monitor with condition variables
+
+    ![image-20220203234111017](06_Synchronization_tools.assets/image-20220203234111017.png)
 
 
 
-Liveness
+**Liveness**
+
+- 프로세스는 mutex lock 또는 세마포어와 같은 동기화 도구를 획득하려고 시도하는 동안 무한정 기다려야 할 수 있음
+- 무한정 기다리는 것은 이 장의 처음에서 progress and bounded-waiting 기준을 위반한다.
+- Liveness는 프로세스가 진행되도록 보장하기 위해 시스템이 충족해야 하는 일련의 속성임
+- 무한정 기다리는 것은 liveness 실패의 한 예시임
+- **Deadlock** - 두개 이상의 프로세스가 대기중인 프로세스 중 하나로 인해 발생할 수 있는 이벤트를 무한정 기다리는 상태
+  - Starvation
+    - Indefinite blocking
+    - 프로세스가 일시 중단된 세마포어 대기열에서 프로세스를 제거할 수 없음
+  - Priority Inversion 
+    - 스케줄링 문제: 우선순위가 낮은 프로세스가 우선순위가 높은 프로세스에 필요한 잠금을 유지하는 경우
+    - 우선 순위 상속 프로토콜을 통해 해결됨
 
